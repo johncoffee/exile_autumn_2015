@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
 
-public class CameraPostProcess : MonoBehaviour {
+[ExecuteInEditMode]
+[AddComponentMenu("Image Effects/Color Adjustments/Grayscale")]
+public class CameraPostProcess : ImageEffectBase
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Texture GlitchTexture;
+    public float ShakeFrequency;
+    public float ShakeAmount;
+
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        material.SetTexture("_GlitchTexture", GlitchTexture);
+        material.SetFloat("_ShakeFrequency", ShakeFrequency);
+        material.SetFloat("_ShakeAmount", ShakeAmount);
+        Graphics.Blit(source, destination, material);
+    }
+
 }
