@@ -17,7 +17,7 @@
 		LOD 200
 		//Blend SrcAlpha OneMinusSrcAlpha 
 
-		Cull Off
+		Cull off
 		CGPROGRAM
 
 		// Physically based Standard lighting model, and enable shadows on all light types
@@ -43,6 +43,7 @@
 		fixed _DisplayPos;
 		sampler2D _NoiseTex;
 		fixed _ShineTexMult;
+		
 
 		struct appdata {
             float4 vertex : POSITION;
@@ -54,7 +55,7 @@
 		void vert (inout appdata v) {
 
 
-			float pValue = v.texcoord.y + _SplitRange;
+			float pValue = v.vertex.y * 2.0f + _SplitRange;
 
 
 			if (_DisplayPos < pValue){
@@ -66,9 +67,9 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			fixed4 c; 
 			
-			float pValue = IN.uv_NoiseTex.y + tex2D (_NoiseTex, IN.uv_NoiseTex).r*_ShineTexMult;
+			float pValue = IN.worldPos.y + tex2D (_NoiseTex, IN.uv_NoiseTex).r*_ShineTexMult;
 
-			if (_DisplayPos > pValue && dot(IN.worldNormal, IN.worldPos - _WorldSpaceCameraPos) < 0.05f)
+			if (_DisplayPos > pValue && dot(IN.worldNormal, IN.worldPos - _WorldSpaceCameraPos) < 0.0f)
 			{
 				c = _MainColor;
 				o.Alpha = c.a;
