@@ -27,8 +27,8 @@
 //				offset.y = offset.y + sin(_Time.y * 51.0f) * _ShakeMagnitude;								
 				
 				fixed4 original = tex2D(_MainTex, offset);
-//				original.x = original.z + sin(_Time.y * tex2D(_MainTex, offset).z ) ;
-				original.r = original.z + sin(_Time.y * tex2D(_MainTex, offset).z ) ;
+				original.g = original.b + sin(_Time.y * tex2D(_MainTex, offset).y ) ;
+				original.r = original.g + sin(_Time.y * tex2D(_MainTex, offset).z ) ;
 				return original;
 			}
 			ENDCG
